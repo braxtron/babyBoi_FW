@@ -160,7 +160,7 @@ void ledTest()
 }
 
 void loop()
-{       ledTest();
+{       //ledTest();
         keyScan();
         for (int i = 0; i < 6; i++)
         {
