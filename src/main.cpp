@@ -105,7 +105,7 @@ void setup()
         /* MIDI Setup */
         Serial1.setTX(5);
         MIDI.begin();
-        // usbMIDI.begin();
+        usbMIDI.begin();
 
         /* MAX7221 Setup */
         backlight.shutdown(0, false); // take Max7221 out of shutdown mode
@@ -135,7 +135,7 @@ void loop()
                 if (keyPressed[i]) { // if key was pressed
                        backlight.setLed(0, LEDS[i], 1, true);
                         if(!keyPrev[i]) { // if key pressed for first time send note on
-                                // usbMIDI.sendNoteOn(MIDI_NOTES[mod][i], 99, 1);  // 61 = C#4
+                                usbMIDI.sendNoteOn(MIDI_NOTES[mod][i], 99, 1);  // 61 = C#4
                                 MIDI.sendNoteOn(MIDI_NOTES[mod][i], 99, 1);  // 61 = C#4
                                 // if(!keyPrev[i] | (keyPrev[i] > KEY_HELD_DELAY)) Keyboard.print(KEYS[0][i]);
                         }
@@ -144,7 +144,7 @@ void loop()
                 else { // if key not pressed
                         if(keyPrev[i]) { // if previously pressed, sent note off for all notes on key
                                 for(int j = 0; j < 3; j++){
-                                        // usbMIDI.sendNoteOff(MIDI_NOTES[j][i], 0, 1);
+                                        usbMIDI.sendNoteOff(MIDI_NOTES[j][i], 0, 1);
                                         MIDI.sendNoteOff(MIDI_NOTES[j][i], 0, 1);
                                 }
                                 keyPrev[i] = 0;
